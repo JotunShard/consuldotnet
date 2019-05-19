@@ -1,6 +1,6 @@
 # Consul.NET
 
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/PlayFab/consuldotnet?branch=master&svg=true)](https://ci.appveyor.com/project/highlyunavailable/consuldotnet)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/CodeBeast357/consuldotnet?branch=master&svg=true)](https://ci.appveyor.com/project/CodeBeast357/consuldotnet)
 
 * Consul API: [v0.7.2](https://github.com/hashicorp/consul/tree/v0.7.2/api)
 * .NET: >= 4.5 - .NET Core: >= 1.0.0
