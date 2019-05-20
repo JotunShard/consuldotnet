@@ -110,7 +110,7 @@ namespace Consul
         /// </summary>
         public Task<QueryResult<RaftConfiguration>> RaftGetConfiguration(CancellationToken ct = default(CancellationToken))
         {
-            return RaftGetConfiguration(QueryOptions.Default, ct);
+            return RaftGetConfiguration(QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Consul
         /// </summary>
         public Task<WriteResult> RaftRemovePeerByAddress(string address, CancellationToken ct = default(CancellationToken))
         {
-            return RaftRemovePeerByAddress(address, WriteOptions.Default, ct);
+            return RaftRemovePeerByAddress(address, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Consul
         /// </summary>
         public Task<WriteResult> KeyringInstall(string key, CancellationToken ct = default(CancellationToken))
         {
-            return KeyringInstall(key, WriteOptions.Default, ct);
+            return KeyringInstall(key, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace Consul
         /// </summary>
         public Task<QueryResult<KeyringResponse[]>> KeyringList(CancellationToken ct = default(CancellationToken))
         {
-            return KeyringList(QueryOptions.Default, ct);
+            return KeyringList(QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace Consul
         /// </summary>
         public Task<WriteResult> KeyringRemove(string key, CancellationToken ct = default(CancellationToken))
         {
-            return KeyringRemove(key, WriteOptions.Default, ct);
+            return KeyringRemove(key, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace Consul
         /// </summary>
         public Task<WriteResult> KeyringUse(string key, CancellationToken ct = default(CancellationToken))
         {
-            return KeyringUse(key, WriteOptions.Default, ct);
+            return KeyringUse(key, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>

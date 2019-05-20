@@ -76,7 +76,7 @@ namespace Consul
         /// <returns>A query result containing coordinates of all the nodes in the LAN pool</returns>
         public Task<QueryResult<CoordinateEntry[]>> Nodes(CancellationToken ct = default(CancellationToken))
         {
-            return Nodes(QueryOptions.Default, ct);
+            return Nodes(QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>

@@ -128,7 +128,7 @@ namespace Consul.Test
             var tokenSource = new CancellationTokenSource();
             var ct = tokenSource.Token;
 
-            var renewTask = client.Session.RenewPeriodic(TimeSpan.FromSeconds(1), id, WriteOptions.Default, ct);
+            var renewTask = client.Session.RenewPeriodic(TimeSpan.FromSeconds(1), id, WriteOptions.GetDefault(client.Config), ct);
 
             var infoRequest = await client.Session.Info(id);
             Assert.True(infoRequest.LastIndex > 0);
@@ -164,7 +164,7 @@ namespace Consul.Test
 
             try
             {
-                var renewTask = client.Session.RenewPeriodic(TimeSpan.FromSeconds(1), id, WriteOptions.Default, ct);
+                var renewTask = client.Session.RenewPeriodic(TimeSpan.FromSeconds(1), id, WriteOptions.GetDefault(client.Config), ct);
                 Assert.True((await client.Session.Destroy(id)).Response);
                 renewTask.Wait(10000);
             }

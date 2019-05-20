@@ -153,7 +153,7 @@ namespace Consul
         /// <returns>A write result containing the newly created ACL token</returns>
         public Task<WriteResult<string>> Create(ACLEntry acl, CancellationToken ct = default(CancellationToken))
         {
-            return Create(acl, WriteOptions.Default, ct);
+            return Create(acl, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace Consul
         /// <returns>An empty write result</returns>
         public Task<WriteResult> Update(ACLEntry acl, CancellationToken ct = default(CancellationToken))
         {
-            return Update(acl, WriteOptions.Default, ct);
+            return Update(acl, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace Consul
         /// <returns>An empty write result</returns>
         public Task<WriteResult<bool>> Destroy(string id, CancellationToken ct = default(CancellationToken))
         {
-            return Destroy(id, WriteOptions.Default, ct);
+            return Destroy(id, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace Consul
         /// <returns>A write result containing the newly created ACL token</returns>
         public Task<WriteResult<string>> Clone(string id, CancellationToken ct = default(CancellationToken))
         {
-            return Clone(id, WriteOptions.Default, ct);
+            return Clone(id, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace Consul
         /// <returns>A query result containing the ACL entry matching the provided ID, or a query result with a null response if no token matched the provided ID</returns>
         public Task<QueryResult<ACLEntry>> Info(string id, CancellationToken ct = default(CancellationToken))
         {
-            return Info(id, QueryOptions.Default, ct);
+            return Info(id, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace Consul
         /// <returns>A write result containing the list of all ACLs</returns>
         public Task<QueryResult<ACLEntry[]>> List(CancellationToken ct = default(CancellationToken))
         {
-            return List(QueryOptions.Default, ct);
+            return List(QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>

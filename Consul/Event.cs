@@ -57,7 +57,7 @@ namespace Consul
 
         public Task<WriteResult<string>> Fire(UserEvent ue, CancellationToken ct = default(CancellationToken))
         {
-            return Fire(ue, WriteOptions.Default, ct);
+            return Fire(ue, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Consul
         /// <returns>An array of events</returns>
         public Task<QueryResult<UserEvent[]>> List(CancellationToken ct = default(CancellationToken))
         {
-            return List(string.Empty, QueryOptions.Default, ct);
+            return List(string.Empty, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Consul
         /// <returns>An array of events</returns>
         public Task<QueryResult<UserEvent[]>> List(string name, CancellationToken ct = default(CancellationToken))
         {
-            return List(name, QueryOptions.Default, ct);
+            return List(name, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>

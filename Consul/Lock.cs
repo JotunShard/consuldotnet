@@ -224,7 +224,7 @@ namespace Consul
                     {
                         LockSession = await CreateSession().ConfigureAwait(false);
                         _sessionRenewTask = _client.Session.RenewPeriodic(Opts.SessionTTL, LockSession,
-                            WriteOptions.Default, _cts.Token);
+                            WriteOptions.GetDefault(_client.Config), _cts.Token);
                     }
                     else
                     {

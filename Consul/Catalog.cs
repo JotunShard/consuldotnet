@@ -95,7 +95,7 @@ namespace Consul
         /// <returns>An empty write result</returns>
         public Task<WriteResult> Register(CatalogRegistration reg, CancellationToken ct = default(CancellationToken))
         {
-            return Register(reg, WriteOptions.Default, ct);
+            return Register(reg, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Consul
         /// <returns>An empty write result</returns>
         public Task<WriteResult> Deregister(CatalogDeregistration reg, CancellationToken ct = default(CancellationToken))
         {
-            return Deregister(reg, WriteOptions.Default, ct);
+            return Deregister(reg, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace Consul
         /// <returns>A list of all nodes</returns>
         public Task<QueryResult<Node[]>> Nodes(CancellationToken ct = default(CancellationToken))
         {
-            return Nodes(QueryOptions.Default, ct);
+            return Nodes(QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Consul
         /// <returns>A list of all services</returns>
         public Task<QueryResult<Dictionary<string, string[]>>> Services(CancellationToken ct = default(CancellationToken))
         {
-            return Services(QueryOptions.Default, ct);
+            return Services(QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace Consul
         /// <returns>A list of service instances</returns>
         public Task<QueryResult<CatalogService[]>> Service(string service, CancellationToken ct = default(CancellationToken))
         {
-            return Service(service, string.Empty, QueryOptions.Default, ct);
+            return Service(service, string.Empty, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace Consul
         /// <returns>A list of service instances</returns>
         public Task<QueryResult<CatalogService[]>> Service(string service, string tag, CancellationToken ct = default(CancellationToken))
         {
-            return Service(service, tag, QueryOptions.Default, ct);
+            return Service(service, tag, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace Consul
         /// <returns>The node information including a list of services</returns>
         public Task<QueryResult<CatalogNode>> Node(string node, CancellationToken ct = default(CancellationToken))
         {
-            return Node(node, QueryOptions.Default, ct);
+            return Node(node, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>

@@ -23,7 +23,7 @@ namespace Consul
 
         public Task<WriteResult> Restore(Stream s, CancellationToken ct = default(CancellationToken))
         {
-            return Restore(s, WriteOptions.Default, ct);
+            return Restore(s, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         public Task<WriteResult> Restore(Stream s, WriteOptions q, CancellationToken ct = default(CancellationToken))
@@ -33,7 +33,7 @@ namespace Consul
 
         public Task<QueryResult<Stream>> Save(CancellationToken ct = default(CancellationToken))
         {
-            return Save(QueryOptions.Default, ct);
+            return Save(QueryOptions.GetDefault(_client.Config), ct);
         }
 
         public Task<QueryResult<Stream>> Save(QueryOptions q, CancellationToken ct = default(CancellationToken))

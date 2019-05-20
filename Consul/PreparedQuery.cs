@@ -210,7 +210,7 @@ namespace Consul
 
         public Task<WriteResult<string>> Create(PreparedQueryDefinition query, CancellationToken ct = default(CancellationToken))
         {
-            return Create(query, WriteOptions.Default, ct);
+            return Create(query, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         public async Task<WriteResult<string>> Create(PreparedQueryDefinition query, WriteOptions q, CancellationToken ct = default(CancellationToken))
@@ -221,7 +221,7 @@ namespace Consul
 
         public Task<WriteResult> Delete(string queryID, CancellationToken ct = default(CancellationToken))
         {
-            return Delete(queryID, WriteOptions.Default, ct);
+            return Delete(queryID, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         public async Task<WriteResult> Delete(string queryID, WriteOptions q, CancellationToken ct = default(CancellationToken))
@@ -232,7 +232,7 @@ namespace Consul
 
         public Task<QueryResult<PreparedQueryExecuteResponse>> Execute(string queryIDOrName, CancellationToken ct = default(CancellationToken))
         {
-            return Execute(queryIDOrName, QueryOptions.Default, ct);
+            return Execute(queryIDOrName, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         public Task<QueryResult<PreparedQueryExecuteResponse>> Execute(string queryIDOrName, QueryOptions q, CancellationToken ct = default(CancellationToken))
@@ -242,7 +242,7 @@ namespace Consul
 
         public Task<QueryResult<PreparedQueryDefinition[]>> Get(string queryID, CancellationToken ct = default(CancellationToken))
         {
-            return Get(queryID, QueryOptions.Default, ct);
+            return Get(queryID, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         public Task<QueryResult<PreparedQueryDefinition[]>> Get(string queryID, QueryOptions q, CancellationToken ct = default(CancellationToken))
@@ -252,7 +252,7 @@ namespace Consul
 
         public Task<QueryResult<PreparedQueryDefinition[]>> List(CancellationToken ct = default(CancellationToken))
         {
-            return List(QueryOptions.Default, ct);
+            return List(QueryOptions.GetDefault(_client.Config), ct);
         }
 
         public Task<QueryResult<PreparedQueryDefinition[]>> List(QueryOptions q, CancellationToken ct = default(CancellationToken))
@@ -262,7 +262,7 @@ namespace Consul
 
         public Task<WriteResult> Update(PreparedQueryDefinition query, CancellationToken ct = default(CancellationToken))
         {
-            return Update(query, WriteOptions.Default, ct);
+            return Update(query, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         public Task<WriteResult> Update(PreparedQueryDefinition query, WriteOptions q, CancellationToken ct = default(CancellationToken))

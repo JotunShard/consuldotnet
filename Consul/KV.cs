@@ -267,7 +267,7 @@ namespace Consul
         /// <returns>A write result indicating if the acquisition attempt succeeded</returns>
         public Task<WriteResult<bool>> Acquire(KVPair p, CancellationToken ct = default(CancellationToken))
         {
-            return Acquire(p, WriteOptions.Default, ct);
+            return Acquire(p, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -295,7 +295,7 @@ namespace Consul
         /// <returns>A write result indicating if the write attempt succeeded</returns>
         public Task<WriteResult<bool>> CAS(KVPair p, CancellationToken ct = default(CancellationToken))
         {
-            return CAS(p, WriteOptions.Default, ct);
+            return CAS(p, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -323,7 +323,7 @@ namespace Consul
         /// <returns>A write result indicating if the delete attempt succeeded</returns>
         public Task<WriteResult<bool>> Delete(string key, CancellationToken ct = default(CancellationToken))
         {
-            return Delete(key, WriteOptions.Default, ct);
+            return Delete(key, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -345,7 +345,7 @@ namespace Consul
         /// <returns>A write result indicating if the delete attempt succeeded</returns>
         public Task<WriteResult<bool>> DeleteCAS(KVPair p, CancellationToken ct = default(CancellationToken))
         {
-            return DeleteCAS(p, WriteOptions.Default, ct);
+            return DeleteCAS(p, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -369,7 +369,7 @@ namespace Consul
         /// <returns>A write result indicating if the recursive delete attempt succeeded</returns>
         public Task<WriteResult<bool>> DeleteTree(string prefix, CancellationToken ct = default(CancellationToken))
         {
-            return DeleteTree(prefix, WriteOptions.Default, ct);
+            return DeleteTree(prefix, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -393,7 +393,7 @@ namespace Consul
         /// <returns>A query result containing the requested key/value pair, or a query result with a null response if the key does not exist</returns>
         public Task<QueryResult<KVPair>> Get(string key, CancellationToken ct = default(CancellationToken))
         {
-            return Get(key, QueryOptions.Default, ct);
+            return Get(key, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -417,7 +417,7 @@ namespace Consul
         /// <returns>A query result containing a list of key names</returns>
         public Task<QueryResult<string[]>> Keys(string prefix, CancellationToken ct = default(CancellationToken))
         {
-            return Keys(prefix, string.Empty, QueryOptions.Default, ct);
+            return Keys(prefix, string.Empty, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -428,7 +428,7 @@ namespace Consul
         /// <returns>A query result containing a list of key names</returns>
         public Task<QueryResult<string[]>> Keys(string prefix, string separator, CancellationToken ct = default(CancellationToken))
         {
-            return Keys(prefix, separator, QueryOptions.Default, ct);
+            return Keys(prefix, separator, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -457,7 +457,7 @@ namespace Consul
         /// <returns>A query result containing the keys matching the prefix</returns>
         public Task<QueryResult<KVPair[]>> List(string prefix, CancellationToken ct = default(CancellationToken))
         {
-            return List(prefix, QueryOptions.Default, ct);
+            return List(prefix, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -481,7 +481,7 @@ namespace Consul
         /// <returns>A write result indicating if the write attempt succeeded</returns>
         public Task<WriteResult<bool>> Put(KVPair p, CancellationToken ct = default(CancellationToken))
         {
-            return Put(p, WriteOptions.Default, ct);
+            return Put(p, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -508,7 +508,7 @@ namespace Consul
         /// <returns>A write result indicating if the release attempt succeeded</returns>
         public Task<WriteResult<bool>> Release(KVPair p, CancellationToken ct = default(CancellationToken))
         {
-            return Release(p, WriteOptions.Default, ct);
+            return Release(p, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -564,7 +564,7 @@ namespace Consul
         /// <returns>The transaction response</returns>
         public Task<WriteResult<KVTxnResponse>> Txn(List<KVTxnOp> txn, CancellationToken ct = default(CancellationToken))
         {
-            return Txn(txn, WriteOptions.Default, ct);
+            return Txn(txn, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>

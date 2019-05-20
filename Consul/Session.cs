@@ -176,7 +176,7 @@ namespace Consul
         /// <param name="ct">The CancellationToken used to stop the session from being renewed (e.g. when the long-running action completes)</param>
         public Task RenewPeriodic(TimeSpan initialTTL, string id, CancellationToken ct)
         {
-            return RenewPeriodic(initialTTL, id, WriteOptions.Default, ct);
+            return RenewPeriodic(initialTTL, id, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -255,7 +255,7 @@ namespace Consul
 
         public Task<WriteResult<string>> Create(CancellationToken ct = default(CancellationToken))
         {
-            return Create(null, WriteOptions.Default, ct);
+            return Create(null, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -264,7 +264,7 @@ namespace Consul
         /// <returns>A write result containing the new session ID</returns>
         public Task<WriteResult<string>> Create(SessionEntry se, CancellationToken ct = default(CancellationToken))
         {
-            return Create(se, WriteOptions.Default, ct);
+            return Create(se, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -283,7 +283,7 @@ namespace Consul
         /// </summary>
         public Task<WriteResult<string>> CreateNoChecks(CancellationToken ct = default(CancellationToken))
         {
-            return CreateNoChecks(null, WriteOptions.Default, ct);
+            return CreateNoChecks(null, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -293,7 +293,7 @@ namespace Consul
         /// <returns>A write result containing the new session ID</returns>
         public Task<WriteResult<string>> CreateNoChecks(SessionEntry se, CancellationToken ct = default(CancellationToken))
         {
-            return CreateNoChecks(se, WriteOptions.Default, ct);
+            return CreateNoChecks(se, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -327,7 +327,7 @@ namespace Consul
         /// <returns>A write result containing the result of the session destruction</returns>
         public Task<WriteResult<bool>> Destroy(string id, CancellationToken ct = default(CancellationToken))
         {
-            return Destroy(id, WriteOptions.Default, ct);
+            return Destroy(id, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -348,7 +348,7 @@ namespace Consul
         /// <returns>A query result containing the session information, or an empty query result if the session entry does not exist</returns>
         public Task<QueryResult<SessionEntry>> Info(string id, CancellationToken ct = default(CancellationToken))
         {
-            return Info(id, QueryOptions.Default, ct);
+            return Info(id, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -369,7 +369,7 @@ namespace Consul
         /// <returns>A query result containing list of all sessions, or an empty query result if no sessions exist</returns>
         public Task<QueryResult<SessionEntry[]>> List(CancellationToken ct = default(CancellationToken))
         {
-            return List(QueryOptions.Default, ct);
+            return List(QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -389,7 +389,7 @@ namespace Consul
         /// <returns>A query result containing the list of sessions, or an empty query result if no sessions exist</returns>
         public Task<QueryResult<SessionEntry[]>> Node(string node, CancellationToken ct = default(CancellationToken))
         {
-            return Node(node, QueryOptions.Default, ct);
+            return Node(node, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -410,7 +410,7 @@ namespace Consul
         /// <returns>An updated session entry</returns>
         public Task<WriteResult<SessionEntry>> Renew(string id, CancellationToken ct = default(CancellationToken))
         {
-            return Renew(id, WriteOptions.Default, ct);
+            return Renew(id, WriteOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>

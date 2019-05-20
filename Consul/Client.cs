@@ -313,13 +313,18 @@ namespace Consul
     /// </summary>
     public class QueryOptions
     {
-        public static readonly QueryOptions Default = new QueryOptions()
+        public static QueryOptions GetDefault(ConsulClientConfiguration config)
         {
-            Consistency = ConsistencyMode.Default,
-            Datacenter = string.Empty,
-            Token = string.Empty,
-            WaitIndex = 0
-        };
+            return new QueryOptions()
+            {
+                Consistency = ConsistencyMode.Default,
+                Datacenter = config.Datacenter,
+                Token = config.Token,
+                WaitIndex = 0,
+                WaitTime = config.WaitTime,
+                Near = null
+            };
+        }
 
         /// <summary>
         /// Providing a datacenter overwrites the DC provided by the Config
@@ -360,11 +365,14 @@ namespace Consul
     /// </summary>
     public class WriteOptions
     {
-        public static readonly WriteOptions Default = new WriteOptions()
+        public static WriteOptions GetDefault(ConsulClientConfiguration config)
         {
-            Datacenter = string.Empty,
-            Token = string.Empty
-        };
+            return new WriteOptions()
+            {
+                Datacenter = config.Datacenter,
+                Token = config.Token
+            };
+        }
 
         /// <summary>
         /// Providing a datacenter overwrites the DC provided by the Config
@@ -810,52 +818,52 @@ namespace Consul
 
         internal GetRequest<TOut> Get<TOut>(string path, QueryOptions opts = null)
         {
-            return new GetRequest<TOut>(this, path, opts ?? QueryOptions.Default);
+            return new GetRequest<TOut>(this, path, opts ?? QueryOptions.GetDefault(Config));
         }
 
         internal DeleteReturnRequest<TOut> DeleteReturning<TOut>(string path, WriteOptions opts = null)
         {
-            return new DeleteReturnRequest<TOut>(this, path, opts ?? WriteOptions.Default);
+            return new DeleteReturnRequest<TOut>(this, path, opts ?? WriteOptions.GetDefault(Config));
         }
 
         internal DeleteRequest Delete(string path, WriteOptions opts = null)
         {
-            return new DeleteRequest(this, path, opts ?? WriteOptions.Default);
+            return new DeleteRequest(this, path, opts ?? WriteOptions.GetDefault(Config));
         }
 
         internal DeleteAcceptingRequest<TIn> DeleteAccepting<TIn>(string path, TIn body, WriteOptions opts = null)
         {
-            return new DeleteAcceptingRequest<TIn>(this, path, body, opts ?? WriteOptions.Default);
+            return new DeleteAcceptingRequest<TIn>(this, path, body, opts ?? WriteOptions.GetDefault(Config));
         }
 
         internal PutReturningRequest<TOut> PutReturning<TOut>(string path, WriteOptions opts = null)
         {
-            return new PutReturningRequest<TOut>(this, path, opts ?? WriteOptions.Default);
+            return new PutReturningRequest<TOut>(this, path, opts ?? WriteOptions.GetDefault(Config));
         }
 
         internal PutRequest<TIn> Put<TIn>(string path, TIn body, WriteOptions opts = null)
         {
-            return new PutRequest<TIn>(this, path, body, opts ?? WriteOptions.Default);
+            return new PutRequest<TIn>(this, path, body, opts ?? WriteOptions.GetDefault(Config));
         }
 
         internal PutNothingRequest PutNothing(string path, WriteOptions opts = null)
         {
-            return new PutNothingRequest(this, path, opts ?? WriteOptions.Default);
+            return new PutNothingRequest(this, path, opts ?? WriteOptions.GetDefault(Config));
         }
 
         internal PutRequest<TIn, TOut> Put<TIn, TOut>(string path, TIn body, WriteOptions opts = null)
         {
-            return new PutRequest<TIn, TOut>(this, path, body, opts ?? WriteOptions.Default);
+            return new PutRequest<TIn, TOut>(this, path, body, opts ?? WriteOptions.GetDefault(Config));
         }
 
         internal PostRequest<TIn> Post<TIn>(string path, TIn body, WriteOptions opts = null)
         {
-            return new PostRequest<TIn>(this, path, body, opts ?? WriteOptions.Default);
+            return new PostRequest<TIn>(this, path, body, opts ?? WriteOptions.GetDefault(Config));
         }
 
         internal PostRequest<TIn, TOut> Post<TIn, TOut>(string path, TIn body, WriteOptions opts = null)
         {
-            return new PostRequest<TIn, TOut>(this, path, body, opts ?? WriteOptions.Default);
+            return new PostRequest<TIn, TOut>(this, path, body, opts ?? WriteOptions.GetDefault(Config));
         }
     }
 
@@ -941,7 +949,7 @@ namespace Consul
             {
                 throw new ArgumentException(nameof(url));
             }
-            Options = options ?? QueryOptions.Default;
+            Options = options ?? QueryOptions.GetDefault(client.Config);
         }
 
         public async Task<QueryResult<TOut>> Execute(CancellationToken ct)
@@ -1013,7 +1021,7 @@ namespace Consul
 
         protected override void ApplyOptions(ConsulClientConfiguration clientConfig)
         {
-            if (Options == QueryOptions.Default)
+            if (Options.Equals(QueryOptions.GetDefault(clientConfig)))
             {
                 return;
             }
@@ -1119,7 +1127,7 @@ namespace Consul
             {
                 throw new ArgumentException(nameof(url));
             }
-            Options = options ?? WriteOptions.Default;
+            Options = options ?? WriteOptions.GetDefault(client.Config);
         }
 
         public async Task<WriteResult<TOut>> Execute(CancellationToken ct)
@@ -1163,7 +1171,7 @@ namespace Consul
 
         protected override void ApplyOptions(ConsulClientConfiguration clientConfig)
         {
-            if (Options == WriteOptions.Default)
+            if (Options.Equals(WriteOptions.GetDefault(clientConfig)))
             {
                 return;
             }
@@ -1193,7 +1201,7 @@ namespace Consul
             {
                 throw new ArgumentException(nameof(url));
             }
-            Options = options ?? WriteOptions.Default;
+            Options = options ?? WriteOptions.GetDefault(client.Config);
         }
 
         public async Task<WriteResult> Execute(CancellationToken ct)
@@ -1232,7 +1240,7 @@ namespace Consul
 
         protected override void ApplyOptions(ConsulClientConfiguration clientConfig)
         {
-            if (Options == WriteOptions.Default)
+            if (Options.Equals(WriteOptions.GetDefault(clientConfig)))
             {
                 return;
             }
@@ -1264,7 +1272,7 @@ namespace Consul
                 throw new ArgumentException(nameof(url));
             }
             _body = body;
-            Options = options ?? WriteOptions.Default;
+            Options = options ?? WriteOptions.GetDefault(client.Config);
         }
 
         public async Task<WriteResult> Execute(CancellationToken ct)
@@ -1319,7 +1327,7 @@ namespace Consul
 
         protected override void ApplyOptions(ConsulClientConfiguration clientConfig)
         {
-            if (Options == WriteOptions.Default)
+            if (Options.Equals(WriteOptions.GetDefault(clientConfig)))
             {
                 return;
             }
@@ -1349,7 +1357,7 @@ namespace Consul
             {
                 throw new ArgumentException(nameof(url));
             }
-            Options = options ?? WriteOptions.Default;
+            Options = options ?? WriteOptions.GetDefault(client.Config);
         }
 
         public async Task<WriteResult<TOut>> Execute(CancellationToken ct)
@@ -1393,7 +1401,7 @@ namespace Consul
 
         protected override void ApplyOptions(ConsulClientConfiguration clientConfig)
         {
-            if (Options == WriteOptions.Default)
+            if (Options.Equals(WriteOptions.GetDefault(clientConfig)))
             {
                 return;
             }
@@ -1423,7 +1431,7 @@ namespace Consul
             {
                 throw new ArgumentException(nameof(url));
             }
-            Options = options ?? WriteOptions.Default;
+            Options = options ?? WriteOptions.GetDefault(client.Config);
         }
 
         public async Task<WriteResult> Execute(CancellationToken ct)
@@ -1462,7 +1470,7 @@ namespace Consul
 
         protected override void ApplyOptions(ConsulClientConfiguration clientConfig)
         {
-            if (Options == WriteOptions.Default)
+            if (Options.Equals(WriteOptions.GetDefault(clientConfig)))
             {
                 return;
             }
@@ -1494,7 +1502,7 @@ namespace Consul
                 throw new ArgumentException(nameof(url));
             }
             _body = body;
-            Options = options ?? WriteOptions.Default;
+            Options = options ?? WriteOptions.GetDefault(client.Config);
         }
 
         public async Task<WriteResult> Execute(CancellationToken ct)
@@ -1550,7 +1558,7 @@ namespace Consul
 
         protected override void ApplyOptions(ConsulClientConfiguration clientConfig)
         {
-            if (Options == WriteOptions.Default)
+            if (Options.Equals(WriteOptions.GetDefault(clientConfig)))
             {
                 return;
             }
@@ -1582,7 +1590,7 @@ namespace Consul
                 throw new ArgumentException(nameof(url));
             }
             _body = body;
-            Options = options ?? WriteOptions.Default;
+            Options = options ?? WriteOptions.GetDefault(client.Config);
         }
 
         public async Task<WriteResult<TOut>> Execute(CancellationToken ct)
@@ -1647,7 +1655,7 @@ namespace Consul
 
         protected override void ApplyOptions(ConsulClientConfiguration clientConfig)
         {
-            if (Options == WriteOptions.Default)
+            if (Options.Equals(WriteOptions.GetDefault(clientConfig)))
             {
                 return;
             }
@@ -1679,7 +1687,7 @@ namespace Consul
                 throw new ArgumentException(nameof(url));
             }
             _body = body;
-            Options = options ?? WriteOptions.Default;
+            Options = options ?? WriteOptions.GetDefault(client.Config);
         }
 
         public async Task<WriteResult> Execute(CancellationToken ct)
@@ -1735,7 +1743,7 @@ namespace Consul
 
         protected override void ApplyOptions(ConsulClientConfiguration clientConfig)
         {
-            if (Options == WriteOptions.Default)
+            if (Options.Equals(WriteOptions.GetDefault(clientConfig)))
             {
                 return;
             }
@@ -1767,7 +1775,7 @@ namespace Consul
                 throw new ArgumentException(nameof(url));
             }
             _body = body;
-            Options = options ?? WriteOptions.Default;
+            Options = options ?? WriteOptions.GetDefault(client.Config);
         }
 
         public async Task<WriteResult<TOut>> Execute(CancellationToken ct)
@@ -1828,7 +1836,7 @@ namespace Consul
 
         protected override void ApplyOptions(ConsulClientConfiguration clientConfig)
         {
-            if (Options == WriteOptions.Default)
+            if (Options.Equals(WriteOptions.GetDefault(clientConfig)))
             {
                 return;
             }

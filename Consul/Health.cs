@@ -208,7 +208,7 @@ namespace Consul
         /// <returns>A query result containing the health checks matching the provided service ID, or a query result with a null response if no service matched the provided ID</returns>
         public Task<QueryResult<HealthCheck[]>> Checks(string service, CancellationToken ct = default(CancellationToken))
         {
-            return Checks(service, QueryOptions.Default, ct);
+            return Checks(service, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace Consul
         /// <returns>A query result containing the health checks matching the provided node ID, or a query result with a null response if no node matched the provided ID</returns>
         public Task<QueryResult<HealthCheck[]>> Node(string node, CancellationToken ct = default(CancellationToken))
         {
-            return Node(node, QueryOptions.Default, ct);
+            return Node(node, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -252,7 +252,7 @@ namespace Consul
         /// <returns>A query result containing the service members matching the provided service ID, or a query result with a null response if no service members matched the filters provided</returns>
         public Task<QueryResult<ServiceEntry[]>> Service(string service, CancellationToken ct = default(CancellationToken))
         {
-            return Service(service, string.Empty, false, QueryOptions.Default, ct);
+            return Service(service, string.Empty, false, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -263,7 +263,7 @@ namespace Consul
         /// <returns>A query result containing the service members matching the provided service ID and tag, or a query result with a null response if no service members matched the filters provided</returns>
         public Task<QueryResult<ServiceEntry[]>> Service(string service, string tag, CancellationToken ct = default(CancellationToken))
         {
-            return Service(service, tag, false, QueryOptions.Default, ct);
+            return Service(service, tag, false, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -275,7 +275,7 @@ namespace Consul
         /// <returns>A query result containing the service members matching the provided service ID, tag, and health status, or a query result with a null response if no service members matched the filters provided</returns>
         public Task<QueryResult<ServiceEntry[]>> Service(string service, string tag, bool passingOnly, CancellationToken ct = default(CancellationToken))
         {
-            return Service(service, tag, passingOnly, QueryOptions.Default, ct);
+            return Service(service, tag, passingOnly, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
@@ -308,7 +308,7 @@ namespace Consul
         /// <returns>A query result containing a list of health checks in the specified state, or a query result with a null response if no health checks matched the provided state</returns>
         public Task<QueryResult<HealthCheck[]>> State(HealthStatus status, CancellationToken ct = default(CancellationToken))
         {
-            return State(status, QueryOptions.Default, ct);
+            return State(status, QueryOptions.GetDefault(_client.Config), ct);
         }
 
         /// <summary>
